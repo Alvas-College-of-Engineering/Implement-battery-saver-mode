@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Battery Saver System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center; padding: 50px; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
+        .battery { font-size: 100px; margin: 20px; }
+        .status { font-size: 24px; margin: 20px; }
+        .mode { color: th:if="${saverMode}" th:text="'green'" th:else="'red'"; }
+        button { padding: 10px 20px; font-size: 16px; margin: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Battery Saver Mode System</h1>
+        <div class="battery" th:if="${batteryLevel > 80}">🔋</div>
+        <div class="battery" th:if="${batteryLevel <= 80 and batteryLevel > 50}">🪫</div>
+        <div class="battery" th:if="${batteryLevel <= 50}">🪫</div>
+        <div class="status" th:text="${status}"></div>
+        <div th:if="${saverMode}">
+            <p style="color: green;">Saver Mode is Active: Settings adjusted to save power.</p>
+        </div>
+        <div th:if="${!saverMode}">
+            <p style="color: red;">Saver Mode is Inactive.</p>
+        </div>
+        <button onclick="location.reload()">Refresh Status</button>
+    </div>
+    <script>
+        // Simulate battery monitoring
+        setInterval(function() {
+            location.reload();
+        }, 5000); // Refresh every 5 seconds
+    </script>
+</body>
+</html>

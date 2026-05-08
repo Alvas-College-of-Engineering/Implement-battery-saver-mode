@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Battery Saver System Preview</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center; padding: 50px; }
+        .container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 600px; margin: auto; }
+        .battery { font-size: 100px; margin: 20px; }
+        .status { font-size: 24px; margin: 20px; }
+        button { padding: 10px 20px; font-size: 16px; margin: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Battery Saver Mode System</h1>
+        <div class="battery">🔋</div>
+        <div class="status">Battery Level: 75%, Saver Mode: Inactive</div>
+        <p style="color: red;">Saver Mode is Inactive.</p>
+        <button onclick="updateStatus()">Refresh Status</button>
+    </div>
+    <script>
+        let batteryLevel = 75;
+        let saverMode = false;
+
+        function updateStatus() {
+            batteryLevel = Math.max(0, batteryLevel - Math.floor(Math.random() * 10));
+            if (batteryLevel < 20 && !saverMode) {
+                saverMode = true;
+            } else if (batteryLevel > 50 && saverMode) {
+                saverMode = false;
+            }
+            document.querySelector('.status').textContent = `Battery Level: ${batteryLevel}%, Saver Mode: ${saverMode ? 'Active' : 'Inactive'}`;
+            document.querySelector('.container p').textContent = saverMode ? 'Saver Mode is Active: Settings adjusted to save power.' : 'Saver Mode is Inactive.';
+            document.querySelector('.container p').style.color = saverMode ? 'green' : 'red';
+            document.querySelector('.battery').textContent = batteryLevel > 80 ? '🔋' : batteryLevel > 50 ? '🪫' : '🪫';
+        }
+
+        setInterval(updateStatus, 5000);
+    </script>
+</body>
+</html>
